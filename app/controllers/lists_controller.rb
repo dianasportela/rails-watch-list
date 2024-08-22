@@ -1,6 +1,10 @@
 class ListsController < ApplicationController
+  before_action :set_list, only: %i[ show ]
   def index
     @list = List.all
+  end
+
+  def show
   end
 
   def new
@@ -9,8 +13,8 @@ class ListsController < ApplicationController
 
   def create
     @list = List.new(list_params)
-    if @restaurant.save
-      redirect_to
+    if @list.save
+      redirect_to lists_path, notice: 'List created!'
     else
       render :new, status: :unprocessable_entity
     end
