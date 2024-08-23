@@ -1,10 +1,11 @@
 class ListsController < ApplicationController
-  before_action :set_list, only: %i[ show ]
+  before_action :set_list, only: %i[show]
   def index
-    @list = List.all
+    @lists = List.all
   end
 
   def show
+    @bookmark = Bookmark.new
   end
 
   def new
@@ -14,9 +15,20 @@ class ListsController < ApplicationController
   def create
     @list = List.new(list_params)
     if @list.save
-      redirect_to lists_path, notice: 'List created!'
+      redirect_to @list, notice: 'List created!'
     else
       render :new, status: :unprocessable_entity
     end
+  end
+
+  private
+  # Use callbacks to share common setup or constraints between actions.
+  def set_list
+    @list = List.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def list_params
+    params.require(:list).permit(:name)
   end
 end

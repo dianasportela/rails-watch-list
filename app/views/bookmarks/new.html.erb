@@ -1,0 +1,22 @@
+<div class="container">
+  <div class="row justify-content">
+    <h1>Add a movie to your list</h1>
+  </div>
+
+  <div class="row justify-content">
+    <div class="col-6">
+      <%= simple_form_for([@list, @bookmark]) do |f| %>
+        <div class="form-inputs">
+          <%= f.association :movie, prompt: "Select a movie", input_html: {data: {controller: "tom-select"}} %>
+          <%= f.input :comment, placeholder: "Any comment on this movie?" %>
+        </div>
+        <div class="form-actions">
+          <%= f.submit class: "btn btn-flat" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+  <div class="btn btn-flat">
+    <%= link_to "Back to lists", lists_path %>
+  </div>
+</div>
